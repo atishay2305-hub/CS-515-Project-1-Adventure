@@ -27,7 +27,7 @@ class Game:
             items = self.file_data[current_room]['items']
             print("Items: " + ", ".join(items) + "\n")
         # print("Exits: " + " ".join(exits) + "\n")
-        print("Exits:" + " ".join(exits) + "\n")
+        print("Exits: " + " ".join(exits) + "\n")
         
     def user_input(self):
         i = ""
