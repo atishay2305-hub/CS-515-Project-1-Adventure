@@ -8,7 +8,7 @@ class Game:
         self.valid_verbs = ["go","get", "look", "inventory", "drop", "quiz", "something"]
         self.file_data = self.open_file("./loop.map")
         self.result = []
-        self.flag = False
+        self.quiz_taken = False
 
     def open_file(self, file_path):
         with open(file_path, "r") as f:
@@ -137,18 +137,21 @@ class Game:
         self.user_input()
 
     def quiz(self):
-        file_data = self.file_data
-        current_room = self.current_room
-        room_name = file_data[current_room]['name']
-        if room_name == "Study Room":
-            print("Let's Start the quiz!!!")
-            self.math_quiz()
-        elif room_name != "Study Room":
-            print("You are not in your study room to give the quiz.")
-        elif "laptop" not in self.backpack:
-            print("Please bring your laptop to the study room to start the quiz.")
+        if self.quiz_taken:
+            print("You have already taken the quiz!")
         else:
-            print("Please go to study room with your laptop to start the quiz.")
+            file_data = self.file_data
+            current_room = self.current_room
+            room_name = file_data[current_room]['name']
+            if room_name == "Study Room":
+                print("Let's Start the quiz!!!")
+                self.math_quiz()
+            elif room_name != "Study Room":
+                print("You are not in your study room to give the quiz.")
+            elif "laptop" not in self.backpack:
+                print("Please bring your laptop to the study room to start the quiz.")
+            else:
+                print("Please go to study room with your laptop to start the quiz.")
 
 
     def math_quiz(self):
@@ -186,6 +189,7 @@ class Game:
         print("Your final score is", score, "out of 5.")
         if score >= 3:
             print("Pass")
+            self.quiz_taken = True
             self.winning()
             
         else:
