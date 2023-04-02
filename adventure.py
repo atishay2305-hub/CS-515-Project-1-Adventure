@@ -15,6 +15,7 @@ class Game:
             data = json.load(f)
             return data
         
+
     def print_room_details(self):
         file_data = self.file_data
         current_room = self.current_room
@@ -24,9 +25,10 @@ class Game:
         print(f"> {room_name}")
         print(room_description)
         if 'items' in self.file_data[current_room]:
-            items = (self.file_data[current_room]['items'])
-            print(items)
-        print(exits)
+            items = self.file_data[current_room]['items']
+            print("Items: " + ", ".join(items))
+        print("Exits: " + ", ".join(exits))
+
 
     def user_input(self):
         i = ""
@@ -52,7 +54,7 @@ class Game:
                                 print("Sorry, you cannot get chocolate until you pass the quiz.")
                             elif item_name in items:
                                 self.backpack.append(item_name)
-                                print(f"Inventory: {self.backpack}")
+                                print(f"Inventory: {', '.join(self.backpack)}")
                                 items.remove(item_name)
                                 print(f"You have added {item_name} to your inventory.")
                             else:
@@ -69,7 +71,6 @@ class Game:
                                 print(f"Dropped {dropped_item} in {room_name}")
                             else:
                                 print("Item is not present in your inventory.")
-
 
                 elif i == "look":
                     return self.look()
@@ -131,7 +132,7 @@ class Game:
         self.user_input()
     
     def inventory(self):
-        print(f"Inventory: {self.backpack}")
+        print(f"Inventory: {', '.join(self.backpack)}")
         self.user_input()
 
     def quiz(self):
@@ -143,7 +144,7 @@ class Game:
             self.math_quiz()
         elif room_name != "Study Room":
             print("You are not in your study room to give the quiz.")
-        elif "laptop" not in self.inventory:
+        elif "laptop" not in self.backpack:
             print("Please bring your laptop to the study room to start the quiz.")
         else:
             print("Please go to study room with your laptop to start the quiz.")
@@ -216,10 +217,9 @@ class Game:
                                 print(f"There is no way to go {i_split[1]}")
                         elif i_split[0] == "get":
                             item_name = " ".join(i_split[1:])
-
                             if item_name in items:
                                 self.backpack.append(item_name)
-                                print(f"Inventory: {self.backpack}")
+                                print(f"Inventory: {', '.join(self.backpack)}")
                                 items.remove(item_name)
                                 print(f"You have added {item_name} to your inventory.")
                                 if "Chocolate" in self.backpack:
@@ -238,7 +238,6 @@ class Game:
                                 print(f"Dropped {dropped_item} in {room_name}")
                             else:
                                 print("Item is not present in your inventory.")
-
 
                 elif i == "look":
                     return self.look()
@@ -265,6 +264,8 @@ class Game:
                 print("\nUse 'quit' to exit.")
                 continue
         return self.quit()
+    
+
 
     def if_choco(self):
             print("""__  __               _       ___     
@@ -308,9 +309,3 @@ def play_game():
     game.user_input()
 
 play_game()
-
-
-
-
-
-
