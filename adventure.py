@@ -90,6 +90,8 @@ class Game:
                         print("Sorry, you need to 'go' somewhere.")
                     elif i == "get":
                         print("Sorry, you need to 'get' something.")
+                    elif i == "drop":
+                        print("Sorry, you need to 'drop' something.")
                     elif i in self.valid_verbs:
                         print("Not Implemented")
                     else:
@@ -122,6 +124,8 @@ class Game:
             if i == "go":
                 return self.user_input()
             elif i == "get":
+                return self.user_input()
+            elif i == "drop":
                 return self.user_input()
             elif i == "look":
                 return self.look()
@@ -222,26 +226,28 @@ class Game:
                 if 'items' in self.file_data[current_room]:
                     items = self.file_data[current_room]['items']
                 i = input("What would you like to do? ")
+                if i == "quit":
+                    break  
                 if " " in i:
                     i_split = i.split(" ")
                     if i_split[0] in self.valid_verbs:
                         if i_split[0] == "go":
                             if i_split[1] in exits:
-                                print(f"You go {i_split[1]}")
+                                print(f"You go {i_split[1]}.\n")
                                 self.current_room = self.file_data[current_room]['exits'][i_split[1]]
                                 self.print_room_details()
                             else:
-                                print(f"There is no way to go {i_split[1]}")
+                                print(f"There's no way to go {i_split[1]}.")
                         elif i_split[0] == "get":
                             item_name = " ".join(i_split[1:])
                             if item_name in items:
-                                print(f"You pick up the {item_name}")
+                                print(f"You pick up the {item_name}.")
                                 self.backpack.append(item_name)
                                 items.remove(item_name)
                                 if "Chocolate" in self.backpack:
                                     return self.if_choco()
                             else:
-                                print(f"There's no {item_name} anywhere.")
+                                print("Item not found in this room.")
 
                         elif i_split[0] == "drop":
                             item_name = " ".join(i_split[1:])
@@ -266,13 +272,19 @@ class Game:
                         
                 elif i == "quiz":
                     return self.quiz()
-                    
-                elif i in self.valid_verbs:
-                    print("Not Implemented")
 
                 else:
-                    print("Please enter a valid input.")
-                            
+                    if i == "go":
+                        print("Sorry, you need to 'go' somewhere.")
+                    elif i == "get":
+                        print("Sorry, you need to 'get' something.")
+                    elif i == "drop":
+                        print("Sorry, you need to 'drop' something.")
+                    elif i in self.valid_verbs:
+                        print("Not Implemented")
+                    else:
+                        print("Please enter a valid input.")
+                                
             except KeyboardInterrupt:
                 print("\nUse 'quit' to exit.")
                 continue
