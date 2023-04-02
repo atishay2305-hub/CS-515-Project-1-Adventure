@@ -117,12 +117,11 @@ class Game:
         print("You can run the following commands:")
         for i in self.valid_verbs:
             if i == "go":
-                print(f"  {i}...")
+                print(f"  {i} ...")
             elif i == "get":
-                print(f"  {i}...")
+                print(f"  {i} ...")
             else:
                 print(f"  {i}")
-        print("Type 'quit' to exit the game.")
         self.user_input()
 
         i = 0
