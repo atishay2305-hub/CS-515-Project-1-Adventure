@@ -23,9 +23,6 @@ class Game:
         exits = file_data[current_room]['exits']
         print(f"> {room_name}\n")
         print(room_description + "\n")
-        # if 'items' in self.file_data[current_room]:
-        #     items = self.file_data[current_room]['items']
-        #     print("Items: " + ", ".join(items) + "\n")
         if 'items' in self.file_data[current_room] and self.file_data[current_room]['items']:
             items = self.file_data[current_room]['items']
             print("Items: " + ", ".join(items) + "\n")
@@ -121,7 +118,6 @@ class Game:
                 print("Use 'quit' to exit.")
                 
         self.quit()
-
 
 
     def quit(self):
@@ -228,6 +224,7 @@ class Game:
                 self.winning()
             else:
                 print("Fail")
+                self.failing()
         except EOFError:
             print("\nQuiz interrupted.")
         except KeyboardInterrupt:
@@ -241,6 +238,10 @@ class Game:
         print("Go to Kitchen and grab chocolate!")
         self.flag = True
         self.second_input()
+
+    def failing(self):
+        print("You Lose")
+        exit()
 
     def second_input(self):
         i = ""
