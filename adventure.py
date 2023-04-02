@@ -5,7 +5,7 @@ class Game:
     def __init__(self):
         self.current_room = 0  
         self.backpack = []  
-        self.valid_verbs = ["go","get", "look", "inventory", "drop", "quiz", "something"]
+        self.valid_verbs = ["go","get", "look", "inventory", "drop", "quiz", "something", "help"]
         self.file_data = self.open_file(sys.argv[1])
         self.result = []
         self.quiz_taken = False
@@ -30,7 +30,7 @@ class Game:
 
     def user_input(self):
         i = ""
-        while i != "quit":
+        while i.lower() != "quit":
             try:
                 current_room = self.current_room
                 exits = list(self.file_data[current_room]['exits'].keys())
@@ -38,21 +38,25 @@ class Game:
                     items = self.file_data[current_room]['items']
                 else:
                     items = []
-                    # print("There are no items in this room.")
-                i = input("What would you like to do? ").lower()
-                if i == "quit":
-                    break  # exit the while loop
-                if " " in i:
-                    i_split = i.split(" ")
-                    if i_split[0] in self.valid_verbs:
-                        if i_split[0].lower() == "go":
-                            if i_split[1] in exits:
-                                print(f"You go {i_split[1]}.\n")
-                                self.current_room = self.file_data[current_room]['exits'][i_split[1]]
+                i = input("What would you like to do? ").strip()
+                if i.lower() == "quit":
+                    break  
+                i_split = i.split()
+                verb = i_split[0].lower()
+                if verb in self.valid_verbs:
+                    if verb == "go":
+                        if len(i_split) > 1:
+                            direction = i_split[1]
+                            if direction in exits:
+                                print(f"You go {direction}.\n")
+                                self.current_room = self.file_data[current_room]['exits'][direction]
                                 self.print_room_details()
                             else:
-                                print(f"There's no way to go {i_split[1]}.")
-                        elif i_split[0].lower() == "get":
+                                print(f"There's no way to go {direction}.")
+                        else:
+                            print("Sorry, you need to 'go' somewhere.")
+                    elif verb == "get":
+                        if len(i_split) > 1:
                             item_name = " ".join(i_split[1:])
                             if item_name == "Chocolate":
                                 print("Sorry, you cannot get chocolate until you pass the quiz.")
@@ -62,51 +66,46 @@ class Game:
                                 self.backpack.append(item_name)
                                 items.remove(item_name)
                             else:
-                                print(f"There's no {i_split[1]} anywhere.")
-
-
-                        elif i_split[0].lower() == "drop":
+                                print(f"There's no {item_name} anywhere.")
+                        else:
+                            print("Sorry, you need to 'get' something.")
+                    elif verb == "drop":
+                        if len(i_split) > 1:
                             item_name = " ".join(i_split[1:])
                             if item_name in self.backpack:
                                 dropped_item = item_name
                                 self.backpack.remove(item_name)
-                                self.file_data[current_room]['items'].append(dropped_item)
+                                new_room = self.file_data[current_room]['exits'][exits[0]] 
+                                previous_room = self.file_data[current_room]['name']
+                                self.file_data[new_room]['items'].append(dropped_item)
                                 file_data = self.file_data
-                                room_name = file_data[current_room]['name']
-                                print(f"Dropped {dropped_item} in {room_name}")
+                                room_name = file_data[new_room]['name']
+                                print(f"Dropped {dropped_item} in {previous_room}.")
                             else:
                                 print("Item is not present in your inventory.")
-
-                elif i.lower() == "look":
-                    return self.look()
-
-                elif i.lower() == "help":
-                    return self.help()
-                        
-                elif i.lower() == "inventory":
-                    return self.inventory()
-                        
-                elif i.lower() == "quiz":
-                    return self.quiz()
-
-                else:
-                    if i.lower() == "go":
-                        print("Sorry, you need to 'go' somewhere.")
-                    elif i.lower() == "get":
-                        print("Sorry, you need to 'get' something.")
-                    elif i.lower() == "drop":
-                        print("Sorry, you need to 'drop' something.")
-                    elif i in self.valid_verbs:
-                        print("Not Implemented")
+                        else:
+                            print("Sorry, you need to 'drop' something.")
+                    elif verb == "look":
+                        self.look()
+                    elif verb == "help":
+                        self.help()
+                    elif verb == "inventory":
+                        self.inventory()
+                    elif verb == "quiz":
+                        self.quiz()
                     else:
-                        print("Please enter a valid input.")
+                        if i in self.valid_verbs:
+                            print("Not Implemented")
+                        else:
+                            print("Please enter a valid input.")
                                 
             except KeyboardInterrupt:
                 exit(0)
             except EOFError:
                 print("\nUse 'quit' to exit.")
                 continue
-        return self.quit()
+        self.quit()
+
 
 
     def quit(self):
@@ -141,7 +140,6 @@ class Game:
                 return self.quit()
             elif i.lower() == "help":
                 return self.help()
-    
 
     def look(self):
         self.print_room_details()
@@ -228,7 +226,7 @@ class Game:
 
     def second_input(self):
         i = ""
-        while i != "quit":
+        while i.lower() != "quit":
             try:
                 current_room = self.current_room
                 exits = list(self.file_data[current_room]['exits'].keys())
@@ -236,21 +234,25 @@ class Game:
                     items = self.file_data[current_room]['items']
                 else:
                     items = []
-                    # print("There are no items in this room.")
-                i = input("What would you like to do? ").lower()
-                if i == "quit":
-                    break  # exit the while loop
-                if " " in i:
-                    i_split = i.split(" ")
-                    if i_split[0] in self.valid_verbs:
-                        if i_split[0].lower() == "go":
-                            if i_split[1] in exits:
-                                print(f"You go {i_split[1]}.\n")
-                                self.current_room = self.file_data[current_room]['exits'][i_split[1]]
+                i = input("What would you like to do? ").strip()
+                if i.lower() == "quit":
+                    break  
+                i_split = i.split()
+                verb = i_split[0].lower()
+                if verb in self.valid_verbs:
+                    if verb == "go":
+                        if len(i_split) > 1:
+                            direction = i_split[1]
+                            if direction in exits:
+                                print(f"You go {direction}.\n")
+                                self.current_room = self.file_data[current_room]['exits'][direction]
                                 self.print_room_details()
                             else:
-                                print(f"There's no way to go {i_split[1]}.")
-                        elif i_split[0].lower() == "get":
+                                print(f"There's no way to go {direction}.")
+                        else:
+                            print("Sorry, you need to 'go' somewhere.")
+                    elif verb == "get":
+                        if len(i_split) > 1:
                             item_name = " ".join(i_split[1:])
                             if item_name.lower() in [item.lower() for item in items]:
                                 item_name = [item for item in items if item.lower() == item_name.lower()][0] # convert item_name to the original case
@@ -260,51 +262,45 @@ class Game:
                                 if "Chocolate" in self.backpack:
                                     return self.if_choco()
                             else:
-                                print(f"There's no {i_split[1]} anywhere.")
-
-
-                        elif i_split[0].lower() == "drop":
+                                print(f"There's no {item_name} anywhere.")
+                        else:
+                            print("Sorry, you need to 'get' something.")
+                    elif verb == "drop":
+                        if len(i_split) > 1:
                             item_name = " ".join(i_split[1:])
                             if item_name in self.backpack:
                                 dropped_item = item_name
                                 self.backpack.remove(item_name)
-                                self.file_data[current_room]['items'].append(dropped_item)
+                                new_room = self.file_data[current_room]['exits'][exits[0]] 
+                                previous_room = self.file_data[current_room]['name']
+                                self.file_data[new_room]['items'].append(dropped_item)
                                 file_data = self.file_data
-                                room_name = file_data[current_room]['name']
-                                print(f"Dropped {dropped_item} in {room_name}")
+                                room_name = file_data[new_room]['name']
+                                print(f"Dropped {dropped_item} in {previous_room}.")
                             else:
                                 print("Item is not present in your inventory.")
-
-                elif i.lower() == "look":
-                    return self.look()
-
-                elif i.lower() == "help":
-                    return self.help()
-                        
-                elif i.lower() == "inventory":
-                    return self.inventory()
-                        
-                elif i.lower() == "quiz":
-                    return self.quiz()
-
-                else:
-                    if i.lower() == "go":
-                        print("Sorry, you need to 'go' somewhere.")
-                    elif i.lower() == "get":
-                        print("Sorry, you need to 'get' something.")
-                    elif i.lower() == "drop":
-                        print("Sorry, you need to 'drop' something.")
-                    elif i in self.valid_verbs:
-                        print("Not Implemented")
+                        else:
+                            print("Sorry, you need to 'drop' something.")
+                    elif verb == "look":
+                        self.look()
+                    elif verb == "help":
+                        self.help()
+                    elif verb == "inventory":
+                        self.inventory()
+                    elif verb == "quiz":
+                        self.quiz()
                     else:
-                        print("Please enter a valid input.")
+                        if i in self.valid_verbs:
+                            print("Not Implemented")
+                        else:
+                            print("Please enter a valid input.")
                                 
             except KeyboardInterrupt:
                 exit(0)
             except EOFError:
                 print("\nUse 'quit' to exit.")
                 continue
-        return self.quit()
+        self.quit()
     
 
     def if_choco(self):
