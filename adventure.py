@@ -1,12 +1,12 @@
 import json
+import sys
 
 class Game:
     def __init__(self):
-        self.name = input("What is your name? ")
         self.current_room = 0  
         self.backpack = []  
         self.valid_verbs = ["go","get", "look", "inventory", "drop", "quiz", "something"]
-        self.file_data = self.open_file("./loop.map")
+        self.file_data = self.open_file(sys.argv[1])
         self.result = []
         self.quiz_taken = False
 
@@ -279,17 +279,13 @@ class Game:
         return self.quit()
     
 
-
     def if_choco(self):
             print("WIN!!!!!!!!")
             self.quit()
    
-# def play_game():
-#     game = Game()
-#     print(f"Hello there {game.name}")
-#     print("Who doesn't love chocolate? But your mum will only give you the chocolate if you pass in an online math quiz you have today.")
-#     print("Your task is to grab your laptop, start the quiz and pass. If you pass, go back to kitchen, grab the chocolate and you win!")
-#     game.print_room_details()
-#     game.user_input()
+def play_game():
+    game = Game()
+    game.print_room_details()
+    game.user_input()
 
-# play_game()
+play_game()
