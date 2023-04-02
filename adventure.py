@@ -113,6 +113,7 @@ class Game:
 
         i = 0
         while i in self.valid_verbs:
+            i = input("What would you like to do? ")
             if i == "go":
                 return self.user_input()
             elif i == "get":
