@@ -36,6 +36,9 @@ class Game:
                 exits = list(self.file_data[current_room]['exits'].keys())
                 if 'items' in self.file_data[current_room]:
                     items = self.file_data[current_room]['items']
+                    if len(items) == 0:
+                        del self.file_data[current_room]['items']
+                        items = []
                 else:
                     items = []
                 i = input("What would you like to do? ").strip()
@@ -46,7 +49,7 @@ class Game:
                 if verb in self.valid_verbs:
                     if verb == "go":
                         if len(i_split) > 1:
-                            direction = i_split[1]
+                            direction = i_split[1].lower()
                             if direction in exits:
                                 print(f"You go {direction}.\n")
                                 self.current_room = self.file_data[current_room]['exits'][direction]
@@ -107,6 +110,7 @@ class Game:
                             print("Not Implemented")
                         else:
                             print("Please enter a valid input.")
+
                 elif EOFError:
                     print("\nUse 'quit' to exit.")
                 else:
@@ -115,7 +119,6 @@ class Game:
                 exit(0)
                 
         self.quit()
-
 
 
     def quit(self):
