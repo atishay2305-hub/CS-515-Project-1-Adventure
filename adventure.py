@@ -231,7 +231,6 @@ class Game:
             print("\nQuiz interrupted.")
 
 
-            
     def winning(self):
         print("Great") 
         print("Now you can have chocolate.")
@@ -251,6 +250,8 @@ class Game:
                 exits = list(self.file_data[current_room]['exits'].keys())
                 if 'items' in self.file_data[current_room]:
                     items = self.file_data[current_room]['items']
+                    if len(items) == 0:
+                        del self.file_data[current_room]['items']
                 else:
                     items = []
                 i = input("What would you like to do? ").strip()
@@ -261,7 +262,7 @@ class Game:
                 if verb in self.valid_verbs:
                     if verb == "go":
                         if len(i_split) > 1:
-                            direction = i_split[1]
+                            direction = i_split[1].lower()
                             if direction in exits:
                                 print(f"You go {direction}.\n")
                                 self.current_room = self.file_data[current_room]['exits'][direction]
@@ -284,22 +285,31 @@ class Game:
                                 print(f"There's no {item_name} anywhere.")
                         else:
                             print("Sorry, you need to 'get' something.")
+
                     elif verb == "drop":
                         if len(i_split) > 1:
-                            item_name = " ".join(i_split[1:])
-                            if item_name in self.backpack:
+                            item_name = " ".join(i_split[1:]).lower()
+                            if item_name in [item.lower() for item in self.backpack]:
+                                item_name = [item for item in self.backpack if item.lower() == item_name][0] # convert item_name to the original case
                                 dropped_item = item_name
                                 self.backpack.remove(item_name)
-                                new_room = self.file_data[current_room]['exits'][exits[0]] 
-                                previous_room = self.file_data[current_room]['name']
-                                self.file_data[new_room]['items'].append(dropped_item)
+                                
+                                if 'items' not in self.file_data[current_room]:
+                                    self.file_data[current_room]['items'] = []
+                                
+                                self.file_data[current_room]['items'].append(dropped_item.title())
+                                
+                                if len(self.file_data[current_room]['items']) == 0:
+                                    del self.file_data[current_room]['items']
+                                
                                 file_data = self.file_data
-                                room_name = file_data[new_room]['name']
-                                print(f"Dropped {dropped_item} in {previous_room}.")
+                                room_name = file_data[current_room]['name']
+                                print(f"Dropped {dropped_item} in {room_name}.")
                             else:
                                 print("Item is not present in your inventory.")
                         else:
                             print("Sorry, you need to 'drop' something.")
+
                     elif verb == "look":
                         self.look()
                     elif verb == "help":
@@ -313,12 +323,14 @@ class Game:
                             print("Not Implemented")
                         else:
                             print("Please enter a valid input.")
-                                
+                else:
+                    print("Please enter a valid input")
             except KeyboardInterrupt:
                 exit(0)
+
             except EOFError:
-                print("\nUse 'quit' to exit.")
-                continue
+                print("Use 'quit' to exit.")
+                
         self.quit()
     
 
