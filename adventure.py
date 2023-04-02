@@ -14,7 +14,7 @@ class Game:
         with open(file_path, "r") as f:
             data = json.load(f)
             return data
-        
+
 
     def print_room_details(self):
         file_data = self.file_data
@@ -23,7 +23,7 @@ class Game:
         room_description = file_data[current_room]['desc']
         exits = file_data[current_room]['exits']
         print(f"> {room_name}\n")
-        print(room_description + ".\n")
+        print(room_description + "\n")
         if 'items' in self.file_data[current_room]:
             items = self.file_data[current_room]['items']
             print("Items: " + ", ".join(items) + "\n")
@@ -37,6 +37,9 @@ class Game:
                 exits = list(self.file_data[current_room]['exits'].keys())
                 if 'items' in self.file_data[current_room]:
                     items = self.file_data[current_room]['items']
+                else:
+                    items = []
+                    # print("There are no items in this room.")
                 i = input("What would you like to do? ").lower()
                 if i == "quit":
                     break  # exit the while loop
@@ -60,7 +63,7 @@ class Game:
                                 self.backpack.append(item_name)
                                 items.remove(item_name)
                             else:
-                                print("Item not found in this room.")
+                                print(f"There's no {i_split[1]} anywhere.")
 
 
                         elif i_split[0].lower() == "drop":
@@ -100,12 +103,12 @@ class Game:
                         print("Please enter a valid input.")
                                 
             except KeyboardInterrupt:
-                print("\nUse 'quit' to exit.")
-                continue
+                exit(0)
             except EOFError:
                 print("\nUse 'quit' to exit.")
                 continue
         return self.quit()
+
 
     def quit(self):
         print("Goodbye!")
@@ -144,7 +147,10 @@ class Game:
         self.user_input()
     
     def inventory(self):
-        print(f"Inventory: {', '.join(self.backpack)}")
+        if len(self.backpack) == 0:
+            print("You're not carrying anything.")
+        else:
+            print(f"Inventory: \n {', '.join(self.backpack)}")
         self.user_input()
 
     def quiz(self):
@@ -227,6 +233,9 @@ class Game:
                 exits = list(self.file_data[current_room]['exits'].keys())
                 if 'items' in self.file_data[current_room]:
                     items = self.file_data[current_room]['items']
+                else:
+                    items = []
+                    # print("There are no items in this room.")
                 i = input("What would you like to do? ").lower()
                 if i == "quit":
                     break  # exit the while loop
@@ -250,7 +259,7 @@ class Game:
                                 if "Chocolate" in self.backpack:
                                     return self.if_choco()
                             else:
-                                print("Item not found in this room.")
+                                print(f"There's no {i_split[1]} anywhere.")
 
 
                         elif i_split[0].lower() == "drop":
@@ -290,8 +299,7 @@ class Game:
                         print("Please enter a valid input.")
                                 
             except KeyboardInterrupt:
-                print("\nUse 'quit' to exit.")
-                continue
+                exit(0)
             except EOFError:
                 print("\nUse 'quit' to exit.")
                 continue
