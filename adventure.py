@@ -273,42 +273,12 @@ class Game:
 
 
     def if_choco(self):
-            print("""__  __               _       ___     
-\ \/ /___  __  __   | |     / (_)___ 
- \  / __ \/ / / /   | | /| / / / __ \
- / / /_/ / /_/ /    | |/ |/ / / / / /
-/_/\____/\__,_/     |__/|__/_/_/ /_/ """)
+            print("WIN!!!!!!!!")
    
 def play_game():
     game = Game()
     print(f"Hello there {game.name}")
     print("Who doesn't love chocolate? But your mum will only give you the chocolate if you pass in an online math quiz you have today.")
-    print("""                                                                                        
-                                                                                        
-░░              ░░                    ░░                    ░░                    ░░    
-                                                                                        
-                                                                                        
-                                                                                        
-░░                                ██████████████                                        
-                                  ██▓▓▓▓██▓▓▓▓██                                        
-                                  ██▓▓▓▓██▓▓▓▓██                                        
-                                  ████████████████                                      
-        ░░      ░░                ██▓▓▓▓██▓▓▓▓██▓▓██        ░░            ░░      ░░    
-                              ██████▓▓▓▓██▓▓▓▓██▓▓▓▓██████                              
-                            ██      ████████████████      ██                            
-                              ████                    ████                              
-                                ████  ████  ██    ██████                                
-                                ██░░██░░  ██░░████  ░░██                                
-                                ██░░  ░░  ░░░░  ░░  ░░██                                
-░░              ░░              ██░░  ░░  ░░░░  ░░  ░░██    ░░                    ░░    
-                                ██░░  ░░        ░░  ░░██                                
-                                ██░░  ░░░░░░░░░░░░  ░░██                                
-                                ██░░                ░░██                                
-░░              ░░              ██░░░░░░░░░░░░░░░░░░░░██    ░░                    ░░    
-                                ████████████████████████                                
-                                                                                        
-                                                                                        
-░░                                                                                         """)
     print("Your task is to grab your laptop, start the quiz and pass. If you pass, go back to kitchen, grab the chocolate and you win!")
     game.print_room_details()
     game.user_input()
