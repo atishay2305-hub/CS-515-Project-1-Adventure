@@ -15,7 +15,6 @@ class Game:
             data = json.load(f)
             return data
 
-
     def print_room_details(self):
         file_data = self.file_data
         current_room = self.current_room
@@ -115,12 +114,15 @@ class Game:
         exit(0)
 
     def help(self):
-        print("You can run the following commands: ")
+        print("You can run the following commands:")
         for i in self.valid_verbs:
-            if "..." in i:
-                print(f"  {i[:-3]} ...")
+            if i == "go":
+                print(f"  {i}...")
+            elif i == "get":
+                print(f"  {i}...")
             else:
                 print(f"  {i}")
+        print("Type 'quit' to exit the game.")
         self.user_input()
 
         i = 0
