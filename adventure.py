@@ -6,7 +6,7 @@ class Game:
         self.current_room = 0  
         self.backpack = []  
         self.valid_verbs = ["go","get", "look", "inventory", "drop", "quiz", "something"]
-        self.file_data = self.open_file("./test.map")
+        self.file_data = self.open_file("./loop.map")
         self.result = []
         self.flag = False
 
