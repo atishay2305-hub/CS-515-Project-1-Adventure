@@ -101,6 +101,7 @@ class Game:
 
     def quit(self):
         print("Goodbye!")
+        exit(0)
 
     def help(self):
         print("You can run the following commands: ")
