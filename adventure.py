@@ -23,7 +23,7 @@ class Game:
         room_description = file_data[current_room]['desc']
         exits = file_data[current_room]['exits']
         print(f"> {room_name}\n")
-        print(room_description + "\n")
+        print(room_description + ".\n")
         if 'items' in self.file_data[current_room]:
             items = self.file_data[current_room]['items']
             print("Items: " + ", ".join(items) + "\n")
@@ -300,7 +300,7 @@ class Game:
 
     def if_choco(self):
             print("WIN!!!!!!!!")
-            self.quit()
+            exit(0)
    
 def play_game():
     game = Game()
