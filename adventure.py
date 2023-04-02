@@ -44,6 +44,7 @@ class Game:
                     if i_split[0] in self.valid_verbs:
                         if i_split[0] == "go":
                             if i_split[1] in exits:
+                                print(f"You go {i_split[1]}")
                                 self.current_room = self.file_data[current_room]['exits'][i_split[1]]
                                 self.print_room_details()
                             else:
@@ -53,10 +54,10 @@ class Game:
                             if item_name == "Chocolate":
                                 print("Sorry, you cannot get chocolate until you pass the quiz.")
                             elif item_name in items:
+                                print(f"You pick up the {item_name}")
                                 self.backpack.append(item_name)
-                                print(f"Inventory: {', '.join(self.backpack)}")
+                                # print(f"Inventory: {', '.join(self.backpack)}")
                                 items.remove(item_name)
-                                print(f"You have added {item_name} to your inventory.")
                             else:
                                 print("Item not found in this room.")
 
@@ -156,45 +157,51 @@ class Game:
 
 
     def math_quiz(self):
-        score = 0
-        answer1 = input("What is 2 + 2? ")
-        if answer1 == "4":
-            print("Correct!")
-            score += 1
-        else:
-            print("Incorrect.")
-        answer2 = input("What is 5 x 3? ")
-        if answer2 == "15":
-            print("Correct!")
-            score += 1
-        else:
-            print("Incorrect.")
-        answer3 = input("What is 10 / 2? ")
-        if answer3 == "5":
-            print("Correct!")
-            score += 1
-        else:
-            print("Incorrect.")
-        answer4 = input("What is the square root of 49? ")
-        if answer4 == "7":
-            print("Correct!")
-            score += 1
-        else:
-            print("Incorrect.")
-        answer5 = input("What is 4 to the power of 2? ")
-        if answer5 == "16":
-            print("Correct!")
-            score += 1  
-        else:
-            print("Incorrect.")
-        print("Your final score is", score, "out of 5.")
-        if score >= 3:
-            print("Pass")
-            self.quiz_taken = True
-            self.winning()
-            
-        else:
-            print("Fail")
+        try:
+            score = 0
+            answer1 = input("What is 2 + 2? ")
+            if answer1 == "4":
+                print("Correct!")
+                score += 1
+            else:
+                print("Incorrect.")
+            answer2 = input("What is 5 x 3? ")
+            if answer2 == "15":
+                print("Correct!")
+                score += 1
+            else:
+                print("Incorrect.")
+            answer3 = input("What is 10 / 2? ")
+            if answer3 == "5":
+                print("Correct!")
+                score += 1
+            else:
+                print("Incorrect.")
+            answer4 = input("What is the square root of 49? ")
+            if answer4 == "7":
+                print("Correct!")
+                score += 1
+            else:
+                print("Incorrect.")
+            answer5 = input("What is 4 to the power of 2? ")
+            if answer5 == "16":
+                print("Correct!")
+                score += 1  
+            else:
+                print("Incorrect.")
+            print("Your final score is", score, "out of 5.")
+            if score >= 3:
+                print("Pass")
+                self.quiz_taken = True
+                self.winning()
+            else:
+                print("Fail")
+        except EOFError:
+            print("\nQuiz interrupted.")
+        except KeyboardInterrupt:
+            print("\nQuiz interrupted.")
+
+
             
     def winning(self):
         print("Great") 
@@ -217,6 +224,7 @@ class Game:
                     if i_split[0] in self.valid_verbs:
                         if i_split[0] == "go":
                             if i_split[1] in exits:
+                                print(f"You go {i_split[1]}")
                                 self.current_room = self.file_data[current_room]['exits'][i_split[1]]
                                 self.print_room_details()
                             else:
@@ -224,12 +232,11 @@ class Game:
                         elif i_split[0] == "get":
                             item_name = " ".join(i_split[1:])
                             if item_name in items:
+                                print(f"You pick up the {item_name}")
                                 self.backpack.append(item_name)
-                                print(f"Inventory: {', '.join(self.backpack)}")
                                 items.remove(item_name)
-                                print(f"You have added {item_name} to your inventory.")
                                 if "Chocolate" in self.backpack:
-                                    return self.inventory()
+                                    return self.if_choco()
                             else:
                                 print("Item not found in this room.")
 
