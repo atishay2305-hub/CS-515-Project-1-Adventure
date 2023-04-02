@@ -26,8 +26,9 @@ class Game:
         if 'items' in self.file_data[current_room]:
             items = self.file_data[current_room]['items']
             print("Items: " + ", ".join(items) + "\n")
-        print("Exits: " + " ".join(exits) + "\n")
-
+        # print("Exits: " + " ".join(exits) + "\n")
+        print("Exits:" + " ".join(exits) + "\n")
+        
     def user_input(self):
         i = ""
         while i.lower() != "quit":
@@ -110,13 +111,13 @@ class Game:
                             print("Not Implemented")
                         else:
                             print("Please enter a valid input.")
-
-                elif EOFError:
-                    print("\nUse 'quit' to exit.")
                 else:
                     print("Please enter a valid input")
             except KeyboardInterrupt:
                 exit(0)
+
+            except EOFError:
+                print("Use 'quit' to exit.")
                 
         self.quit()
 
@@ -162,7 +163,9 @@ class Game:
         if len(self.backpack) == 0:
             print("You're not carrying anything.")
         else:
-            print(f"Inventory: \n {', '.join(self.backpack)}")
+            print("Inventory:")
+            for item in self.backpack:
+                print("  " + item)
         self.user_input()
 
     def quiz(self):
