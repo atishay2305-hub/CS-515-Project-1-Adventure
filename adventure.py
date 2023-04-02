@@ -228,7 +228,7 @@ class Game:
                                 items.remove(item_name)
                                 print(f"You have added {item_name} to your inventory.")
                                 if "Chocolate" in self.backpack:
-                                    return self.if_choco()
+                                    return self.inventory()
                             else:
                                 print("Item not found in this room.")
 
