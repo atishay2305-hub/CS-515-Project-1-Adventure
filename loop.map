@@ -1,0 +1,25 @@
+[
+{"name": "Bedroom",
+    "desc": "You are in a cozy bedroom with white walls. A comfortable bed is in the center of the room, with a mattress and pillows covered in soft blankets and sheets. A nightstand with a lamp and an alarm clock is beside the bed. A dresser with a mirror is on the other side of the room.",
+    "exits": { "north": 1, "east": 3 },
+    "items": ["Bed", "Mattress", "Pillows", "Blankets", "Sheets", "Nightstand", "Lamp", "Alarm clock", "Dresser", "Mirror", "Laptop"]
+}
+,
+{"name": "Living Room",
+    "desc": "You are in a comfortable living room with soothing blue walls. A plush couch is in the center of the room, surrounded by a few chairs and a coffee table. A lamp and a painting decorate the walls, and a book is sitting on the table. A dog bed is in the corner of the room, along with a few pillows and blankets.",
+    "exits": { "east": 2, "south": 0 },
+    "items": ["Toy", "Dog Bed", "Dog Treat", "Lamp", "Book", "Chair", "Pillow", "Blanket", "Painting"]
+}
+,
+{"name": "Study Room",
+    "desc": "You are in a quiet room filled with study materials and tools.",
+    "exits": { "west": 1, "south": 3 },
+    "items": ["Textbooks", "Pens", "Notebooks", "Laptop", "Calculator", "Highlighters", "Sticky Notes", "Ruler", "Protractor"]
+}
+,
+ {"name": "Kitchen",
+    "desc": "The place where all the magic happens.",
+    "exits": { "north": 2, "west": 0 },
+    "items": ["Pizza", "peanut butter", "Chocolate", "Strawberries"]
+}
+]
