@@ -6,12 +6,11 @@ How many hours I spend: 20-25hours total
 
 For testing I did multiple things: 
 
-a. Used print statements to test if my conditions are even getting satisfied or not
-b. Splitting screen and side by side comparing outputs from what was given to me on canvas vs my output
-c. As I dont have a linux machine, so i used a website that uses diff compare for comparing two outputs, through this I compared some outputs that might contain trivial spacing or some issues.
-d. I finally used canvas's ambig and loop file to test my code, again and again on gradescore until I reach 14/14.
-
-e. I resolved every issue, only the ctrl+D i couldnt solve because I dont have linux machine but I read that it works fine on linux. I also mentioned an exception of EOFERROR, so it should work fine with linux based machines.
+Used print statements to test if my conditions are even getting satisfied or not
+Splitting screen and side by side comparing outputs from what was given to me on canvas vs my output
+As I dont have a linux machine, so i used a website that uses diff compare for comparing two outputs, through this I compared some outputs that might contain trivial spacing or some issues.
+I finally used canvas's ambig and loop file to test my code, again and again on gradescore until I reach 14/14.
+I resolved every issue, only the ctrl+D i couldnt solve because I dont have linux machine but I read that it works fine on linux. I also mentioned an exception of EOFERROR, so it should work fine with linux based machines.
 
 f. Extensions;
     1. help: I used help the way what was asked to us. If you add something to the list of valid verbs help will recognize it but it will through a not implemented error. It will also have ... infront of go and get as mentioned.
