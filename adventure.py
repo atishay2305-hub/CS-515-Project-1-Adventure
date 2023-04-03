@@ -63,7 +63,7 @@ class Game:
                             if item_name == "Chocolate":
                                 print("Sorry, you cannot get chocolate until you pass the quiz.")
                             elif item_name.lower() in [item.lower() for item in items]:
-                                item_name = [item for item in items if item.lower() == item_name.lower()][0] # convert item_name to the original case
+                                item_name = [item for item in items if item.lower() == item_name.lower()][0] 
                                 print(f"You pick up the {item_name}.")
                                 self.backpack.append(item_name)
                                 items.remove(item_name)
@@ -76,7 +76,7 @@ class Game:
                         if len(i_split) > 1:
                             item_name = " ".join(i_split[1:]).lower()
                             if item_name in [item.lower() for item in self.backpack]:
-                                item_name = [item for item in self.backpack if item.lower() == item_name][0] # convert item_name to the original case
+                                item_name = [item for item in self.backpack if item.lower() == item_name][0] 
                                 dropped_item = item_name
                                 self.backpack.remove(item_name)
                                 
@@ -275,7 +275,7 @@ class Game:
                         if len(i_split) > 1:
                             item_name = " ".join(i_split[1:])
                             if item_name.lower() in [item.lower() for item in items]:
-                                item_name = [item for item in items if item.lower() == item_name.lower()][0] # convert item_name to the original case
+                                item_name = [item for item in items if item.lower() == item_name.lower()][0] 
                                 print(f"You pick up the {item_name}.")
                                 self.backpack.append(item_name)
                                 items.remove(item_name)
@@ -290,7 +290,7 @@ class Game:
                         if len(i_split) > 1:
                             item_name = " ".join(i_split[1:]).lower()
                             if item_name in [item.lower() for item in self.backpack]:
-                                item_name = [item for item in self.backpack if item.lower() == item_name][0] # convert item_name to the original case
+                                item_name = [item for item in self.backpack if item.lower() == item_name][0] 
                                 dropped_item = item_name
                                 self.backpack.remove(item_name)
                                 
